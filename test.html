@@ -1,0 +1,135 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>
+      
+        Getting Started •
+      
+      Waypoints
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+  <div class="inner">
+    <h1><a href="/waypoints/">Waypoints</a></h1>
+    <nav class="on-guides">
+      <ul>
+        <li><a href="/waypoints/" class="nav-about">About</a></li>
+        <li><a href="/waypoints/guides/getting-started" class="nav-guides">Guides</a></li>
+        <li><a href="/waypoints/shortcuts/sticky-elements" class="nav-shortcuts">Shortcuts</a></li>
+        <li><a href="/waypoints/api/waypoint" class="nav-api">API</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+      <main>
+  <ul class="subsection-nav on-getting-started">
+  <li><a href="/waypoints/guides/getting-started" class="nav-getting-started">Getting Started</a></li>
+  <li><a href="/waypoints/guides/jquery-zepto" class="nav-jquery-zepto">jQuery/Zepto</a></li>
+  <li><a href="/waypoints/guides/debugging" class="nav-debugging">Debugging</a></li>
+  <li><a href="/waypoints/guides/adapters" class="nav-adapters">Adapters</a></li>
+</ul>
+
+  <article>
+    <h2>Getting Started</h2>
+
+<p>The first thing you'll need to do is <a href="https://github.com/imakewebthings/waypoints/zipball/latest">download Waypoints</a>. The <code>lib/</code> directory contains builds for jQuery and Zepto, as well as a version with no framework dependencies. Choose the one that fits your needs and include it.</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/path/to/noframework.waypoints.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span></code></pre></div>
+
+<p>The rest of this guide and any code snippets on this site, unless otherwise noted, will be using the no-framework build. If you're interested in the goodies that come with jQuery and Zepto builds, take a look at the <a href="/waypoints/guides/jquery-zepto">jQuery/Zepto guide</a>. Code snippets for the no-framework build will work in other builds.</p>
+
+<h3>A Basic Waypoint</h3>
+
+<p>With Waypoints included, we now have access to a global <code>Waypoint</code> class. We create waypoints by instantiating this class. When creating a new <code>Waypoint</code> we must pass it an options object. There are many properties you can set on this options object, but two of them are required, <code>element</code>, and <code>handler</code>.</p>
+
+<div class="waypoint" id="basic-waypoint">
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">waypoint</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Waypoint</span><span class="p">({</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;basic-waypoint&#39;</span><span class="p">),</span>
+  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;Basic waypoint triggered&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></div>
+</div>
+
+<p>The <code>element</code> tells Waypoints which DOM element's position to observe during scroll, and <code>handler</code> is the function that will trigger when the top of that element hits the top of the viewport.</p>
+
+<h3>Directions</h3>
+
+<p>You may notice the basic example above triggers when we scroll through the waypoint both downwards and upwards. What if we want to perform different actions when scrolling up, or limit our handler to one direction? When a waypoint is triggered, the handler function is passed a <code>direction</code> parameter.</p>
+
+<div id="direction-waypoint" class="waypoint">
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">waypoint</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Waypoint</span><span class="p">({</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;direction-waypoint&#39;</span><span class="p">),</span>
+  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;Direction: &#39;</span> <span class="o">+</span> <span class="nx">direction</span><span class="p">)</span>
+  <span class="p">}</span>
+<span class="p">})</span></code></pre></div>
+</div>
+
+<h3>Offsets</h3>
+
+<p>By default a waypoint triggers when the top of the element hits the top of the window. What if we want it to trigger when the element is 20px from the top instead?</p>
+
+<div id="px-offset-waypoint" class="waypoint">
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">waypoint</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Waypoint</span><span class="p">({</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;px-offset-waypoint&#39;</span><span class="p">),</span>
+  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">notify</span><span class="p">(</span><span class="s1">&#39;I am 20px from the top of the window&#39;</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">offset</span><span class="o">:</span> <span class="mi">20</span> 
+<span class="p">})</span></code></pre></div>
+</div>
+
+<p>The <code>offset</code> option can take a variety of different values to help us control where a waypoint is triggered. For more information, check out the <a href="/waypoints/api/offset-option">offset option documentation</a>.</p>
+
+<h3>this?</h3>
+
+<p>When we're inside the handler function the <code>this</code> keyword is a reference to the Waypoint instance. We can use this object to access all the properties and methods in the <a href="/waypoints/api/waypoint">API</a>. One of the most useful properties is <code>element</code>, the waypoint's DOM element.</p>
+
+<div id="element-waypoint" class="waypoint">
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">waypoint</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Waypoint</span><span class="p">({</span>
+  <span class="nx">element</span><span class="o">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;element-waypoint&#39;</span><span class="p">),</span>
+  <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">notify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">element</span><span class="p">.</span><span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39; triggers at &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">triggerPoint</span><span class="p">)</span>
+  <span class="p">},</span>
+  <span class="nx">offset</span><span class="o">:</span> <span class="s1">&#39;75%&#39;</span>
+<span class="p">})</span></code></pre></div>
+</div>
+
+<h3>Now What?</h3>
+
+<p>This has been a very brief guide to the basics of Waypoints. The <a href="/waypoints/api/waypoint">API documentation</a> goes into more depth about all of the options, methods, and properties available to us. In addition to being a  reference for more technically savvy developers, each of the API pages acts as a guide for how to use that feature. The docs are intended to be useful for beginners and experts alike.</p>
+
+<p>If you already have a use for Waypoints in mind, take a moment to check out the <a href="/waypoints/shortcuts/sticky-elements">Shortcuts</a> section. These shortcut scripts take some of the most common uses of Waypoints and packages them into ready-made extensions.</p>
+
+  </article>
+</main>
+
+      <footer>
+  <div class="inner">
+    <p>A project of <a href="http://imakewebthings.com">I Make Web Things</a>. Photo by <a href="https://github.com/Maciek416" target="_blank">Maciej Adwent</a>.</p>
+  </div>
+</footer>
+
+    </div>
+    <ul class="notifications"></ul>
+    <script src="js/noframework.waypoints.min.js"></script>
+    <script type="text/javascript">
+      var waypoint = new Waypoint({
+        element: document.getElementById('basic-waypoint'),
+        handler: function() {
+          // notify('Basic waypoint triggered')
+          console.log('d');
+        }
+      })
+    </script>
+  </body>
+</html>
